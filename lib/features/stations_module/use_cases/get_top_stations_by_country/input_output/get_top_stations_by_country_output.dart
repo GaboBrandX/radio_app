@@ -1,7 +1,7 @@
 import 'package:radio_app/core/entities/radio_station_entity.dart';
 
 class GetTopStationsByCountryOutput {
-  final List<RadioStationEntity> radios;
+  final List<RadioStationEntity> stations;
 
-  GetTopStationsByCountryOutput(this.radios);
+  GetTopStationsByCountryOutput(this.stations);
 }
