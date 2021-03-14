@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:radio_app/abstractions/http_client.dart';
 import 'package:radio_app/abstractions/injector.dart';
 import 'package:radio_app/features/stations_module/components/countries_list/cubit/countries_list_cubit.dart';
+import 'package:radio_app/features/stations_module/components/top_stations_by_country/cubit/top_stations_by_country_cubit.dart';
 import 'package:radio_app/features/stations_module/pages/countries_page.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/data/get_countries_remote_repository_impl.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_use_case.dart';
@@ -45,6 +46,14 @@ abstract class StationsModule {
       () => GetTopStationsByCountryUseCaseImpl(
         remoteRepository:
             injector.resolve<GetTopStationsByCountryRemoteRepository>(),
+      ),
+    );
+
+    injector.registerFactory<TopStationsByCountryCubit>(
+      () => TopStationsByCountryCubit(
+        getCurrentCountryUseCase: injector.resolve<GetCurrentCountryUseCase>(),
+        getTopStationsByCountryUseCase:
+            injector.resolve<GetTopStationsByCountryUseCase>(),
       ),
     );
   }
