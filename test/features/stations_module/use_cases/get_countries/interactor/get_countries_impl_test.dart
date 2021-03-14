@@ -27,6 +27,8 @@ void main() {
       var result = await useCase.execute();
 
       expect(result, equals(expected));
+      verify(_mockGetCountriesRemoteRepository.getCountries()).called(1);
+      verifyNoMoreInteractions(_mockGetCountriesRemoteRepository);
     });
   });
 }
