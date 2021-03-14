@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "email_label": "Email",
+  "@email_label": {
+    "description": "Hint and label for the sign in form email field"
+  },
+  "password_label": "Password",
+  "@password_label": {
+    "description": "Hint and label for the sign in form password field"
+  },
+  "sign_in_label": "Sign In",
+  "@sign_in_label": {
+    "description": "Label for the sign in form button"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "@@locale": "es",
+  "email_label": "Dirección de correo",
+  "password_label": "Contraseña",
+  "sign_in_label": "Iniciar Sesión"
+}
