@@ -11,6 +11,8 @@ abstract class Injector {
 
   T resolve<T>();
 
+  T resolveByName<T>(String name);
+
   static Injector register(Injector implementation) {
     instance = implementation;
     return instance;

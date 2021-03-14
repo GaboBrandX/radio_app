@@ -1,7 +1,7 @@
 import 'package:mockito/mockito.dart';
 import 'package:radio_app/core/entities/country_entity.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/input_output/get_countries_output.dart';
-import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_impl.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_use_case_impl.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/repositories/get_countries_remote_repository.dart';
 import 'package:test/test.dart';
 
@@ -20,8 +20,8 @@ void main() {
       var countries = [CountryEntity('Argentina', 'ar')];
       when(_mockGetCountriesRemoteRepository.getCountries())
           .thenAnswer((realInvocation) => Future.value(countries));
-      var useCase =
-          GetCountriesImpl(remoteRepository: _mockGetCountriesRemoteRepository);
+      var useCase = GetCountriesUseCaseImpl(
+          remoteRepository: _mockGetCountriesRemoteRepository);
       var expected = GetCountriesOutput(countries);
 
       var result = await useCase.execute();

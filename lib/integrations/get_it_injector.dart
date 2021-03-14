@@ -44,4 +44,11 @@ class GetItInjector implements Injector {
   T resolve<T>() {
     return _getIt.get<T>();
   }
+
+  @override
+  T resolveByName<T>(String name) {
+    return _getIt.get<T>(
+      instanceName: name,
+    );
+  }
 }

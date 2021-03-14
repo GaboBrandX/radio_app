@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:radio_app/abstractions/injector.dart';
 import 'package:radio_app/application/application_themes.dart';
 import 'package:radio_app/features/auth_module/auth_module.dart';
+import 'package:radio_app/features/stations_module/stations_module.dart';
 import 'package:radio_app/infrastructure/environment_config.dart';
 
 class Application extends StatelessWidget {
@@ -24,7 +25,7 @@ class Application extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: ApplicationThemes.light,
       routes: _generateRoutes(),
-      initialRoute: AuthModule.SignInRoute,
+      initialRoute: StationsModule.CountriesRoute,
     );
   }
 
@@ -46,6 +47,7 @@ class Application extends StatelessWidget {
   Map<String, WidgetBuilder> _generateRoutes() {
     return {
       ...AuthModule.generateRoutes(),
+      ...StationsModule.generateRoutes(),
     };
   }
 }

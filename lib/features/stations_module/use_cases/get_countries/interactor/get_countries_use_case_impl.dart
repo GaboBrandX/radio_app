@@ -1,13 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/input_output/get_countries_output.dart';
-import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_use_case.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/repositories/get_countries_remote_repository.dart';
 
-class GetCountriesImpl implements GetCountries {
+class GetCountriesUseCaseImpl implements GetCountriesUseCase {
   final GetCountriesRemoteRepository _remoteRepository;
 
-  GetCountriesImpl({
-    GetCountriesRemoteRepository remoteRepository,
-  }) : _remoteRepository = remoteRepository;
+  GetCountriesUseCaseImpl({
+    @required GetCountriesRemoteRepository remoteRepository,
+  })  : assert(remoteRepository != null),
+        _remoteRepository = remoteRepository;
 
   @override
   Future<GetCountriesOutput> execute() async {
