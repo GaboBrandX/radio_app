@@ -1,4 +1,6 @@
-class CountryEntity {
+import 'package:equatable/equatable.dart';
+
+class CountryEntity extends Equatable {
   final String name;
   final String countryCode;
 
@@ -7,4 +9,7 @@ class CountryEntity {
     this.countryCode,
   )   : assert(name != null && name.isNotEmpty),
         assert(countryCode != null && countryCode.isNotEmpty);
+
+  @override
+  List<Object> get props => [name, countryCode];
 }
