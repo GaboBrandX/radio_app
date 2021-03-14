@@ -1,16 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:radio_app/abstractions/http_client.dart';
-import 'package:radio_app/core/entities/country_entity.dart';
-import 'package:radio_app/features/stations_module/use_cases/get_countries/repositories/get_countries_remote_repository.dart';
+import 'package:radio_app/core/entities/radio_station_entity.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/repositories/get_top_stations_by_country_remote_repository.dart';
 
-class GetCountriesRemoteRepositoryImpl implements GetCountriesRemoteRepository {
+class GetTopStationsByCountryRemoteRepositoryImpl
+    implements GetTopStationsByCountryRemoteRepository {
   final String _baseUrl;
   final String _apiKey;
   final String _apiHost;
   final HttpClient _httpClient;
-  static const String _countriesEndpoint = '/v1/countries/getAll';
+  static const String _topStationsByCountryEndpoint =
+      '/v1/radios/getTopByCountry';
 
-  GetCountriesRemoteRepositoryImpl({
+  GetTopStationsByCountryRemoteRepositoryImpl({
     @required String baseUrl,
     @required String apiKey,
     @required String apiHost,
@@ -25,8 +27,8 @@ class GetCountriesRemoteRepositoryImpl implements GetCountriesRemoteRepository {
         assert(httpClient != null);
 
   @override
-  Future<List<CountryEntity>> getCountries() async {
-    var url = '$_baseUrl$_countriesEndpoint';
+  Future<List<RadioStationEntity>> getTopStations(String countryCode) async {
+    var url = '$_baseUrl$_topStationsByCountryEndpoint?query=$countryCode';
     await _httpClient.addHeaders({
       'x-rapidapi-key': _apiKey,
       'x-rapidapi-host': _apiHost,
@@ -41,11 +43,17 @@ class GetCountriesRemoteRepositoryImpl implements GetCountriesRemoteRepository {
     return null;
   }
 
-  List<CountryEntity> _mapApiData(Map<dynamic, dynamic> data) {
-    var list = (data['countries'] as List<dynamic>);
+  List<RadioStationEntity> _mapApiData(Map<dynamic, dynamic> data) {
+    var list = data['radios'] as List<dynamic>;
     return list
         .map(
-          (e) => CountryEntity(e['name'], e['country_code']),
+          (e) => RadioStationEntity(
+            e['name'],
+            e['image_url'],
+            e['uri'],
+            e['country_code'],
+            e['genre'].split(','),
+          ),
         )
         .toList();
   }

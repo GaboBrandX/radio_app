@@ -11,6 +11,10 @@ import 'package:radio_app/features/stations_module/use_cases/get_current_country
 import 'package:radio_app/features/stations_module/use_cases/get_current_country/interactor/get_current_country_use_case.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_current_country/interactor/get_current_country_use_case_impl.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_current_country/repositories/get_current_country_local_repository.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/data/get_top_stations_by_country_remote_repository_impl.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/interactor/get_top_stations_by_country_use_case.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/interactor/get_top_stations_by_country_use_case_impl.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/repositories/get_top_stations_by_country_remote_repository.dart';
 
 abstract class StationsModule {
   static const String CountriesRoute = '/countries';
@@ -24,6 +28,25 @@ abstract class StationsModule {
   static void registerDependencies(Injector injector) {
     _registerGetCountriesFeature(injector);
     _registerGetCurrentCountryFeature(injector);
+    _registerGetTopStationsByCountryFeature(injector);
+  }
+
+  static void _registerGetTopStationsByCountryFeature(Injector injector) {
+    injector.registerFactory<GetTopStationsByCountryRemoteRepository>(
+      () => GetTopStationsByCountryRemoteRepositoryImpl(
+        baseUrl: injector.resolveByName('baseUrl'),
+        apiKey: injector.resolveByName('apiKey'),
+        apiHost: injector.resolveByName('apiHost'),
+        httpClient: injector.resolve<HttpClient>(),
+      ),
+    );
+
+    injector.registerFactory<GetTopStationsByCountryUseCase>(
+      () => GetTopStationsByCountryUseCaseImpl(
+        remoteRepository:
+            injector.resolve<GetTopStationsByCountryRemoteRepository>(),
+      ),
+    );
   }
 
   static void _registerGetCurrentCountryFeature(Injector injector) {
