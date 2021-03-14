@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:radio_app/features/auth_module/components/sign_in_form.dart';
-import 'package:radio_app/ioc/ioc_manager.dart';
+import 'package:radio_app/infrastructure/ioc_manager.dart';
 
 class SignInPage extends StatelessWidget {
   @override
