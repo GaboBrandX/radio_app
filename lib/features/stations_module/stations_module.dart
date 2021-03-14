@@ -7,6 +7,10 @@ import 'package:radio_app/features/stations_module/use_cases/get_countries/data/
 import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_use_case.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/interactor/get_countries_use_case_impl.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_countries/repositories/get_countries_remote_repository.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_current_country/data/get_current_country_local_repository_impl.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_current_country/interactor/get_current_country_use_case.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_current_country/interactor/get_current_country_use_case_impl.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_current_country/repositories/get_current_country_local_repository.dart';
 
 abstract class StationsModule {
   static const String CountriesRoute = '/countries';
@@ -18,6 +22,23 @@ abstract class StationsModule {
   }
 
   static void registerDependencies(Injector injector) {
+    _registerGetCountriesFeature(injector);
+    _registerGetCurrentCountryFeature(injector);
+  }
+
+  static void _registerGetCurrentCountryFeature(Injector injector) {
+    injector.registerFactory<GetCurrentCountryLocalRepository>(
+      () => GetCurrentCountryLocalRepositoryImpl(),
+    );
+
+    injector.registerFactory<GetCurrentCountryUseCase>(
+      () => GetCurrentCountryUseCaseImpl(
+        repository: injector.resolve<GetCurrentCountryLocalRepository>(),
+      ),
+    );
+  }
+
+  static void _registerGetCountriesFeature(Injector injector) {
     injector.registerFactory<GetCountriesRemoteRepository>(
       () => GetCountriesRemoteRepositoryImpl(
         baseUrl: injector.resolveByName('baseUrl'),
