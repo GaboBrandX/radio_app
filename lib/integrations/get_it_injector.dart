@@ -21,6 +21,17 @@ class GetItInjector implements Injector {
   }
 
   @override
+  void registerFactoryByName<T>(factoryFunc, String name) {
+    if (_getIt.isRegistered<T>(instanceName: name)) {
+      _getIt.unregister<T>(instanceName: name);
+    }
+    _getIt.registerFactory<T>(
+      factoryFunc,
+      instanceName: name,
+    );
+  }
+
+  @override
   void registerLazySingleton<T>(factoryFunc) {
     if (_getIt.isRegistered<T>()) {
       _getIt.unregister<T>();

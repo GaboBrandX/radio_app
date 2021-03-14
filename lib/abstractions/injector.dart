@@ -5,6 +5,8 @@ abstract class Injector {
 
   void registerFactory<T>(FactoryFunc<T> factoryFunc);
 
+  void registerFactoryByName<T>(FactoryFunc<T> factoryFunc, String name);
+
   void registerLazySingleton<T>(FactoryFunc<T> factoryFunc);
 
   T resolve<T>();
