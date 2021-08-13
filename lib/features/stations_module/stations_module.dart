@@ -20,6 +20,7 @@ import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by
 import 'package:radio_app/infrastructure/ioc_manager.dart';
 
 abstract class StationsModule {
+  static NavigationManager _navigationManager;
   static const String CountriesRoute = '/countries';
 
   static Map<String, WidgetBuilder> generateRoutes() {
@@ -29,6 +30,8 @@ abstract class StationsModule {
   }
 
   static void registerDependencies(Injector injector) {
+    _navigationManager = IocManager.getInstance().resolve<NavigationManager>();
+
     _registerGetCountriesFeature(injector);
     _registerGetCurrentCountryFeature(injector);
     _registerGetTopStationsByCountryFeature(injector);
@@ -96,7 +99,10 @@ abstract class StationsModule {
   }
 
   static Future<void> navigateToCountriesPage(BuildContext context) async {
-    var navigator = IocManager.getInstance().resolve<NavigationManager>();
-    await navigator.push(CountriesRoute, context);
+    await _navigationManager.push(CountriesRoute, context);
+  }
+
+  static Future<void> navigateToOtherPage(BuildContext context) async {
+    await _navigationManager.push(CountriesRoute, context);
   }
 }
