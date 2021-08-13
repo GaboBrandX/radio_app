@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:radio_app/abstractions/http_client.dart';
 import 'package:radio_app/abstractions/injector.dart';
+import 'package:radio_app/abstractions/navigation_manager.dart';
 import 'package:radio_app/features/stations_module/components/countries_list/cubit/countries_list_cubit.dart';
 import 'package:radio_app/features/stations_module/components/top_stations_by_country/cubit/top_stations_by_country_cubit.dart';
 import 'package:radio_app/features/stations_module/pages/countries_page.dart';
@@ -16,6 +17,7 @@ import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by
 import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/interactor/get_top_stations_by_country_use_case.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/interactor/get_top_stations_by_country_use_case_impl.dart';
 import 'package:radio_app/features/stations_module/use_cases/get_top_stations_by_country/repositories/get_top_stations_by_country_remote_repository.dart';
+import 'package:radio_app/infrastructure/ioc_manager.dart';
 
 abstract class StationsModule {
   static const String CountriesRoute = '/countries';
@@ -91,5 +93,10 @@ abstract class StationsModule {
         getCountriesUseCase: injector.resolve<GetCountriesUseCase>(),
       ),
     );
+  }
+
+  static Future<void> navigateToCountriesPage(BuildContext context) async {
+    var navigator = IocManager.getInstance().resolve<NavigationManager>();
+    await navigator.push(CountriesRoute, context);
   }
 }

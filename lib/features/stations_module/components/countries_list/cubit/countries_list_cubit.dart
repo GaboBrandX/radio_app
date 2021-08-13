@@ -12,12 +12,13 @@ class CountriesListCubit extends Cubit<CountriesListState> {
 
   Future<void> getCountries() async {
     emit(CountriesListLoading());
+    every((element) => false);
 
     var result = await _getCountriesUseCase.execute();
-    if (result != null &&
-        result.countries != null &&
-        result.countries.isNotEmpty) {
-      emit(CountriesListLoaded(result.countries));
+    if (result.hasErrors()) {
+      emit(CountriesListError(result.errors));
+    } else {
+      emit(CountriesListLoaded(result.countriesResult.countries));
     }
   }
 }

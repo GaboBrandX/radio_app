@@ -18,3 +18,12 @@ class CountriesListLoaded extends CountriesListState {
   @override
   List<Object> get props => [countries];
 }
+
+class CountriesListError extends CountriesListState {
+  final List<String> errors;
+
+  CountriesListError(this.errors);
+
+  @override
+  List<Object> get props => [errors];
+}

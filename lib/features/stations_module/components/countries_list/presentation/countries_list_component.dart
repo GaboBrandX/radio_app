@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_app/core/commons/mg_activity_indicator.dart';
+import 'package:radio_app/core/commons/mg_bloc_provider.dart';
 import 'package:radio_app/core/commons/mg_button.dart';
 import 'package:radio_app/features/stations_module/components/countries_list/countries_list.dart';
 
@@ -16,7 +17,7 @@ class CountriesListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return MgBlocProvider(
       create: (_) => _cubit..getCountries(),
       child: BlocBuilder<CountriesListCubit, CountriesListState>(
         bloc: _cubit,
