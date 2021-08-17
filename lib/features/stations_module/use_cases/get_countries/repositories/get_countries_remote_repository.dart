@@ -1,5 +1,5 @@
-import 'package:radio_app/core/entities/country_entity.dart';
+import 'package:radio_app/features/stations_module/use_cases/get_countries/repositories/get_countries_remote_repository_output.dart';
 
 abstract class GetCountriesRemoteRepository {
-  Future<List<CountryEntity>> getCountries();
+  Future<GetCountriesRemoteRepositoryOutput> getCountries();
 }
