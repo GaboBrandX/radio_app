@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:radio_app/abstractions/http_client.dart';
 import 'package:radio_app/abstractions/injector.dart';
 import 'package:radio_app/abstractions/navigation_manager.dart';
+import 'package:radio_app/core/entities/country_entity.dart';
 import 'package:radio_app/features/stations_module/components/countries_list/cubit/countries_list_cubit.dart';
 import 'package:radio_app/features/stations_module/components/top_stations_by_country/cubit/top_stations_by_country_cubit.dart';
 import 'package:radio_app/features/stations_module/pages/countries_page.dart';
@@ -102,7 +103,8 @@ abstract class StationsModule {
     await _navigationManager.push(CountriesRoute, context);
   }
 
-  static Future<void> navigateToOtherPage(BuildContext context) async {
-    await _navigationManager.push(CountriesRoute, context);
+  static Future<void> navigateToOtherPage(BuildContext context, CountryEntity country) async {
+    // await _navigationManager.push(CountriesRoute, context);
+    await Navigator.of(context).pushNamed(CountriesRoute, arguments: CountriesPageParams(country));
   }
 }
